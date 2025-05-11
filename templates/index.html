@@ -1,0 +1,451 @@
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+    <p>{{ message}}</p>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<style>
+    /* Estilos CSS */
+    body {
+      background-color: #5d7086; /* Color de fondo gris claro */
+    }
+  </style>
+
+<h1>ITEMS</h1>
+
+<h2>Tablas</h2>
+
+<h3>CLIENTES</h3>
+
+<form action="/add_cliente" method="POST">
+    <input type = "text" name="ID_CLIENTE" placeholder="ID">
+    <input type = "text" name="NOMBRE" placeholder="Nombre">
+    <input type = "text" name="CONTACTO" placeholder="Contacto">
+    <button type = "submit">
+        Save
+    </button>
+</form>
+
+<form action="/joinC" method="POST">
+    <label for="tipo_join">Tipo Join</label>
+    <select name="tipo_join" id="tipo_join">
+        <option value="Inner">INNER</option>
+        <option value="Inner">LEFT</option>
+        <option value="Inner">RIGHT</option>
+        <option value="Inner">FULL</option>
+    </select>
+
+    <label for="tabla1">Tabla:</label>
+    <select name="tabla1" id="tabla1">
+        <option value="PRODUCTOS">Productos</option>
+        <option value="PEDIDOS">Pedidos</option>
+        <option value="CATEGORIAS">Categorias</option>
+        <option value="ALMACENES">Almacenes</option>
+    </select>
+
+    <label for="condicion">Condicion:</label>
+    <select name="condicion" id="condicion">
+        <option value="WHERE">WHERE</option>
+        <option value="NOT">NOT</option>
+        <option value="AND">AND</option>
+    </select>
+
+    <input type="text" name="filtro" placeholder="Filtro:">
+
+    <button type="submit">Aplicar</button>
+
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>Nombre</td>
+            <td>Contacto</td>
+            <td>Actions</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for Cliente in CLIENTES %}
+            <tr>
+                <td>{{Cliente.0}}</td>
+                <td>{{Cliente.1}}</td>
+                <td>{{Cliente.2}}</td>
+                <td>
+                    <a href="/edit/{{Cliente.0}}">Edit</a>
+                    <a href="/delete/{{Cliente.0}}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div>
+    {%if page_clientes > 1 %}
+        <a href="{{url_for('Index', clientes_page=page_clientes-1,
+                                    pedidos_page=page_pedidos-1,
+                                    productos_page=page_productos,
+                                    categorias_page=page_categorias,
+                                    almacenes_page=page_almacenes) }}">Atras</a>
+    {% endif %}
+
+    <span>Pagina {{page_clientes}} de {{total_clientes_pages}} </span>
+
+    {% if page_clientes < total_clientes_pages %}
+        <a href="{{url_for('Index', clientes_page=page_clientes+1,
+                                    pedidos_page=page_pedidos+1,
+                                    productos_page=page_productos+1,
+                                    categorias_page=page_categorias,
+                                    almacenes_page=page_almacenes) }}">Sig</a>
+    {% endif %}
+</div>
+
+<h3>PEDIDOS</h3>
+
+<form action="/add_pedido" method="POST">
+    <input type = "text" name="ID_PEDIDO" placeholder="ID">
+    <input type = "text" name="CLIENTE" placeholder="ID Cliente">
+    <input type = "text" name="FECHAP" placeholder="Fecha">
+    <input type = "text" name="IDP" placeholder="ID Producto">
+    <input type = "text" name="CANTIDAD" placeholder="Cantidad">
+    <button type = "submit">
+        Save
+    </button>
+</form>
+
+<form action="/joinC" method="POST">
+    <label for="tipo_join">Tipo Join</label>
+    <select name="tipo_join" id="tipo_join">
+        <option value="Inner">INNER</option>
+        <option value="Inner">LEFT</option>
+        <option value="Inner">RIGHT</option>
+        <option value="Inner">FULL</option>
+    </select>
+
+    <label for="tabla1">Tabla:</label>
+    <select name="tabla1" id="tabla1">
+        <option value="PRODUCTOS">Productos</option>
+        <option value="CLIENTES">Clientes</option>
+        <option value="CATEGORIAS">Categorias</option>
+        <option value="ALMACENES">Almacenes</option>
+    </select>
+
+    <label for="condicion">Condicion:</label>
+    <select name="condicion" id="condicion">
+        <option value="WHERE">WHERE</option>
+        <option value="NOT">NOT</option>
+        <option value="AND">AND</option>
+    </select>
+
+    <input type="text" name="filtro" placeholder="Filtro:">
+
+    <button type="submit">Aplicar</button>
+
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>Cliente</td>
+            <td>Fecha</td>
+            <td>ID Producto</td>
+            <td>Cantidad</td>
+            <td>Actions</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for Pedido in PEDIDOS %}
+            <tr>
+                <td>{{Pedido.0}}</td>
+                <td>{{Pedido.1}}</td>
+                <td>{{Pedido.2}}</td>
+                <td>{{Pedido.3}}</td>
+                <td>{{Pedido.4}}</td>
+                <td>
+                    <a href="/edit/{{Pedido.0}}">Update</a>
+                    <a href="/delete/{{Pedido.0}}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div>
+    {%if page_productos > 1 %}
+        <a href="{{url_for('Index', clientes_page=page_clientes,
+                                    pedidos_page=page_pedidos-1,
+                                    productos_page=page_productos,
+                                    categorias_page=page_categorias,
+                                    almacenes_page=page_almacenes) }}">Atras</a>
+    {% endif %}
+
+    <span>Pagina {{page_clientes}} de {{total_clientes_pages}} </span>
+
+    {% if page_clientes < total_clientes_pages %}
+        <a href="{{url_for('Index', clientes_page=page_clientes,
+                                    pedidos_page=page_pedidos+1,
+                                    productos_page=page_productos,
+                                    categorias_page=page_categorias,
+                                    almacenes_page=page_almacenes) }}">Sig</a>
+    {% endif %}
+</div>
+
+<h3>PRODUCTOS</h3>
+
+<form action="/add_producto" method="POST">
+    <input type = "text" name="ID_PRODUCTO" placeholder="ID">
+    <input type = "text" name="DESCRIPCION" placeholder="Nombre">
+    <input type = "text" name="PRECIO" placeholder="Precio">
+    <input type = "text" name="IDCAT" placeholder="Cantidad">
+    <button type = "submit">
+        Save
+    </button>
+</form>
+
+<form action="/joinC" method="POST">
+    <label for="tipo_join">Tipo Join</label>
+    <select name="tipo_join" id="tipo_join">
+        <option value="Inner">INNER</option>
+        <option value="Inner">LEFT</option>
+        <option value="Inner">RIGHT</option>
+        <option value="Inner">FULL</option>
+    </select>
+
+    <label for="tabla1">Tabla:</label>
+    <select name="tabla1" id="tabla1">
+        <option value="CLIENTES">Clientes</option>
+        <option value="PEDIDOS">Pedidos</option>
+        <option value="CATEGORIAS">Categorias</option>
+        <option value="ALMACENES">Almacenes</option>
+    </select>
+
+    <label for="condicion">Condicion:</label>
+    <select name="condicion" id="condicion">
+        <option value="WHERE">WHERE</option>
+        <option value="NOT">NOT</option>
+        <option value="AND">AND</option>
+    </select>
+
+    <input type="text" name="filtro" placeholder="Filtro:">
+
+    <button type="submit">Aplicar</button>
+
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>Nombre</td>
+            <td>Precio</td>
+            <td>Cantidad</td>
+            <td>Actions</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for Producto in PRODUCTOS %}
+            <tr>
+                <td>{{Producto.0}}</td>
+                <td>{{Producto.1}}</td>
+                <td>{{Producto.2}}</td>
+                <td>{{Producto.3}}</td>
+                <td>
+                    <a href="/edit/{{Producto.0}}">Update</a>
+                    <a href="/delete/{{Producto.0}}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div>
+    {%if page_productos > 1 %}
+        <a href="{{url_for('Index', clientes_page=page_clientes,
+                                    pedidos_page=page_pedidos,
+                                    productos_page=page_productos-1,
+                                    categorias_page=page_categorias,
+                                    almacenes_page=page_almacenes) }}">Atras</a>
+    {% endif %}
+
+    <span>Pagina {{page_clientes}} de {{total_clientes_pages}} </span>
+
+    {% if page_productos < total_productos_pages %}
+        <a href="{{url_for('Index', clientes_page=page_clientes,
+                                    pedidos_page=page_pedidos,
+                                    productos_page=page_productos+1,
+                                    categorias_page=page_categorias,
+                                    almacenes_page=page_almacenes) }}">Sig</a>
+    {% endif %}
+</div>
+
+<h3>CATEGORIAS</h3>
+
+<form action="/add_categoria" method="POST">
+    <input type = "text" name="ID_CATEGORIA" placeholder="ID">
+    <input type = "text" name="NOMBRECAT" placeholder="Nombre">
+    <button type = "submit">
+        Save
+    </button>
+</form>
+
+<form action="/joinC" method="POST">
+    <label for="tipo_join">Tipo Join</label>
+    <select name="tipo_join" id="tipo_join">
+        <option value="Inner">INNER</option>
+        <option value="Inner">LEFT</option>
+        <option value="Inner">RIGHT</option>
+        <option value="Inner">FULL</option>
+    </select>
+
+    <label for="tabla1">Tabla:</label>
+    <select name="tabla1" id="tabla1">
+        <option value="PRODUCTOS">Productos</option>
+        <option value="PEDIDOS">Pedidos</option>
+        <option value="CLIENTES">Clientes</option>
+        <option value="ALMACENES">Almacenes</option>
+    </select>
+
+    <label for="condicion">Condicion:</label>
+    <select name="condicion" id="condicion">
+        <option value="WHERE">WHERE</option>
+        <option value="NOT">NOT</option>
+        <option value="AND">AND</option>
+    </select>
+
+    <input type="text" name="filtro" placeholder="Filtro:">
+
+    <button type="submit">Aplicar</button>
+
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>Nombre</td>
+            <td>Actions</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for Categoria in CATEGORIAS %}
+            <tr>
+                <td>{{Categoria.0}}</td>
+                <td>{{Categoria.1}}</td>
+                <td>
+                    <a href="/edit/{{Categoria.0}}">Update</a>
+                    <a href="/delete/{{Categoria.0}}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div>
+    {%if page_productos > 1 %}
+        <a href="{{url_for('Index', clientes_page=page_clientes,
+                                    pedidos_page=page_pedidos,
+                                    productos_page=page_productos,
+                                    categorias_page=page_categorias-1,
+                                    almacenes_page=page_almacenes) }}">Atras</a>
+    {% endif %}
+
+    <span>Pagina {{page_categorias}} de {{total_categorias_pages}} </span>
+
+    {% if page_productos < total_productos_pages %}
+        <a href="{{url_for('Index', clientes_page=page_clientes,
+                                    pedidos_page=page_pedidos,
+                                    productos_page=page_productos,
+                                    categorias_page=page_categorias+1,
+                                    almacenes_page=page_almacenes) }}">Sig</a>
+    {% endif %}
+</div>
+
+<h3>ALMACENES</h3>
+
+<form action="/add_almacen" method="POST">
+    <input type = "text" name="ID_ALMACEN" placeholder="ID">
+    <input type = "text" name="UBICACION" placeholder="Ubicacion">
+    <input type = "text" name="CAPACIDAD" placeholder="Capacidad">
+    <button type = "submit">
+        Save
+    </button>
+</form>
+
+<form action="/joinC" method="POST">
+    <label for="tipo_join">Tipo Join</label>
+    <select name="tipo_join" id="tipo_join">
+        <option value="Inner">INNER</option>
+        <option value="Inner">LEFT</option>
+        <option value="Inner">RIGHT</option>
+        <option value="Inner">FULL</option>
+    </select>
+
+    <label for="tabla1">Tabla:</label>
+    <select name="tabla1" id="tabla1">
+        <option value="PRODUCTOS">Productos</option>
+        <option value="PEDIDOS">Pedidos</option>
+        <option value="CATEGORIAS">Categorias</option>
+        <option value="CLIENTES">Clientes</option>
+    </select>
+
+    <label for="condicion">Condicion:</label>
+    <select name="condicion" id="condicion">
+        <option value="WHERE">WHERE</option>
+        <option value="NOT">NOT</option>
+        <option value="AND">AND</option>
+    </select>
+
+    <input type="text" name="filtro" placeholder="Filtro:">
+
+    <button type="submit">Aplicar</button>
+
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>Ubicacion</td>
+            <td>Capacidad</td>
+            <td>Actions</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for Almacen in ALMACENES %}
+            <tr>
+                <td>{{Almacen.0}}</td>
+                <td>{{Almacen.1}}</td>
+                <td>{{Almacen.2}}</td>
+                <td>
+                    <a href="/edit/{{Almacen.0}}">Update</a>
+                    <a href="/delete/{{Almacen.0}}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div>
+    {%if page_almacenes > 1 %}
+        <a href="{{url_for('Index', clientes_page=page_clientes,
+                                    pedidos_page=page_pedidos,
+                                    productos_page=page_productos,
+                                    categorias_page=page_categorias,
+                                    almacenes_page=page_almacenes-1) }}">Atras</a>
+    {% endif %}
+
+    <span>Pagina {{page_clientes}} de {{total_clientes_pages}} </span>
+
+    {% if page_almacenes < total_almacenes_pages %}
+        <a href="{{url_for('Index', clientes_page=page_clientes,
+                                    pedidos_page=page_pedidos,
+                                    productos_page=page_productos,
+                                    categorias_page=page_categorias,
+                                    almacenes_page=page_almacenes+1) }}">Sig</a>
+    {% endif %}
+</div>
+
+
