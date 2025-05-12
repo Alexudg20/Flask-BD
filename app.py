@@ -27,7 +27,7 @@ def login():
     if request.method == 'POST':
         username = request.form['password']
         conn = get_db_connection()
-        cur = conn.cursor()
+        cursor = connection.cursor()
         cur.execute(f"SELECT username, password from users where username = '{username}'")
         user = cur.fetchone()
         cursor.close()
@@ -46,7 +46,7 @@ def register():
         pwd = request.form['password']
 
         conn = get_db_connection()
-        cur = conn.cursor()
+        cursor = connection.cursor()
     
         cur.execute(f"INSERT INTO users (username, password) values ('{username}'), '{pwd}')")
         connection.commit()
