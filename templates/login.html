@@ -10,21 +10,32 @@
                 justify-content: center;
                 align-items: center;
 
+                .log{
+                    background-color: rgb(53, 165, 165);
+                    padding: 50px;
+                    border-radius: 10px;
+                    width: 300px;
+                    text-align: center;
+                }
+
             }
         </style>
     </head>
     <body>
-        <h1>Inicio de Sesion</h1>
-        {% if error %}
+        <div class="log">
+            <h1>Inicio de Sesion</h1>
+            {% if error %}
             <p style="color:rgb(158, 45, 0);">{{error}}</p>
-        {% endif %}
-        <form method="POST" action="/login">
-            <label for="username">Usuario</label>
-            <input type="text" id="username" name="username" required><br><br>
-            <label for="username">Password</label>
-            <input type="text" id="password" name="password" required><br><br>
-            <input type="submit" value="Login">
-        </form>
-        <a href="/register">Crear Usuario</a>
+            {% endif %}
+            <form method="POST" action="/login">
+                <label for="username">Usuario</label>
+                <input type="text" id="username" name="username" required><br><br>
+                <label for="username">Password</label>
+                <input type="password" id="password" name="password" required><br><br>
+                <input type="submit" value="Login">
+            </form>
+
+            <a href="/register">Crear Usuario</a>
+        </div>
     </body>
 </html>

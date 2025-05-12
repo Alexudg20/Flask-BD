@@ -2,15 +2,35 @@
 <html>
     <head>
         <title>Register</title>
+        <style>
+            /*CSS */
+            body {
+                background-color: #5d7086;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .reg{
+                    background-color: rgb(53, 165, 165);
+                    padding: 50px;
+                    border-radius: 10px;
+                    width: 300px;
+                    text-align: center;
+                }
+
+            }
+        </style>
     </head>
     <body>
-        <h1>Registrar Usuario</h1>
-        <form method="POST" action="/register">
-            <label for="username">Usuario:</label>
-            <input type="text" id="username" name="username" required><br><br>
-            <label for="username">Password</label>
-            <input type="text" id="password" name="password" required><br><br>
-            <input type="submit" value="Register">
-        </form>
+        <div class="reg">
+            <h1>Registrar Usuario</h1>
+            <form method="POST" action="/register">
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" name="username" required><br><br>
+                <label for="username">Password</label>
+                <input type="password" id="password" name="password" required><br><br>
+                <input type="submit" value="Register">
+            </form>
+        </div>
     </body>
 </html>
