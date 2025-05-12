@@ -1,1 +1,19 @@
 <!DOCTYPE html>
+<html>
+    <head>
+        <title>Login</title>
+    </head>
+    <body>
+        <h1>Inicio de Sesion</h1>
+        {% if error %}
+            <p style="color:aquamarine;">{{error}}</p>
+        {% endif %}
+        <form method="POST" action="/login">
+            <label for="username">Usuario</label>
+            <input type="text" id="username" name="username" required><br><br>
+            <label for="username">Password</label>
+            <input type="text" id="password" name="password" required><br><br>
+            <input type="submit" value="Login">
+        </form>
+    </body>
+</html>
