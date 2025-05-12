@@ -180,7 +180,7 @@
                 <td>{{Pedido.4}}</td>
                 <td>
                     <a href="/edit/{{Pedido.0}}">Update</a>
-                    <a href="/delete/{{Pedido.0}}">Delete</a>
+                    <a href="{{url_for('delete_pedido', ID_PEDIDO=Pedido.0)}}">Delete</a>
                 </td>
             </tr>
             {% endfor %}
@@ -267,7 +267,7 @@
                 <td>{{Producto.3}}</td>
                 <td>
                     <a href="/edit/{{Producto.0}}">Update</a>
-                    <a href="/delete/{{Producto.0}}">Delete</a>
+                    <a href="{{url_for('delete_producto', ID_PRODUCTO=Producto.0)}}">Delete</a>
                 </td>
             </tr>
             {% endfor %}
@@ -348,7 +348,7 @@
                 <td>{{Categoria.1}}</td>
                 <td>
                     <a href="/edit/{{Categoria.0}}">Update</a>
-                    <a href="/delete/{{Categoria.0}}">Delete</a>
+                    <a href="{{url_for('delete_categoria', ID_CATEGORIA=Categoria.0)}}">Delete</a>
                 </td>
             </tr>
             {% endfor %}
@@ -432,7 +432,7 @@
                 <td>{{Almacen.2}}</td>
                 <td>
                     <a href="/edit/{{Almacen.0}}">Update</a>
-                    <a href="/delete/{{Almacen.0}}">Delete</a>
+                    <a href="{{url_for('delete_almacen', ID_ALMACEN=Almacen.0)}}">Delete</a>
                 </td>
             </tr>
             {% endfor %}

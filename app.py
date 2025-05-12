@@ -27,7 +27,7 @@ def login():
     if request.method == 'POST':
         username = request.form['password']
         conn = get_db_connection()
-        cursor = connection.cursor()
+        cursor = conn.cursor()
         cur.execute(f"SELECT username, password from users where username = '{username}'")
         user = cur.fetchone()
         cursor.close()
@@ -46,9 +46,9 @@ def register():
         pwd = request.form['password']
 
         conn = get_db_connection()
-        cursor = connection.cursor()
+        cursor = conn.cursor()
     
-        cur.execute(f"INSERT INTO users (username, password) values ('{username}'), '{pwd}')")
+        cur.execute(f"INSERT INTO users (username, password) VALES (%s, %s)", (username, pwd))
         connection.commit()
         cursor.close()
         connection.close()
@@ -247,10 +247,10 @@ def update_pedido(ID_CLIENTE):
 ##DELETE
 
 @app.route('/delete_pedido/<string:ID_PEDIDO>')
-def delete_pedido(ID_CLIENTE):
+def delete_pedido(ID_PEDIDO):
     connection = get_db_connection()
     cur = connection.cursor()
-    cur.execute('DELETE FROM PEDIDOS WHERE ID_PEDIDO = {0}'.format(ID_PEDIDO))
+    cur.execute("DELETE FROM PEDIDOS WHERE ID_PEDIDO = %s", (ID_PEDIDO,))
     connection.commit()
     cur.close()
     connection.close()
@@ -317,7 +317,7 @@ def update_producto(ID_PRODUCTO):
 def delete_producto(ID_PRODUCTO):
     connection = get_db_connection()
     cur = connection.cursor()
-    cur.execute('DELETE FROM PRODUCTOS WHERE ID_PEDIDO = {0}'.format(ID_PRODUCTO))
+    cur.execute("DELETE FROM PRODUCTOS WHERE ID_PRODUCTO = %s", (ID_PRODUCTO,))
     connection.commit()
     cur.close()
     connection.close()
@@ -380,7 +380,7 @@ def update_categoria(ID_CATEGORIA):
 def delete_categoria(ID_CATEGORIA):
     connection = get_db_connection()
     cur = connection.cursor()
-    cur.execute('DELETE FROM CATEGORIAS WHERE ID_CATEGORIAS = {0}'.format(ID_CATEGORIA))
+    cur.execute("DELETE FROM CATEGORIAS WHERE ID_CATEGORIA = %s", (ID_CATEGORIA,))
     connection.commit()
     cur.close()
     connection.close()
@@ -446,7 +446,7 @@ def update_almacen(ID_ALMACEN):
 def delete_almacen(ID_ALMACEN):
     connection = get_db_connection()
     cur = connection.cursor()
-    cur.execute('DELETE FROM ALMACENES WHERE ID_ALMACEN = {0}'.format(ID_ALMACEN))
+    cur.execute("DELETE FROM ALMACENES WHERE ID_ALMACEN = %s", (ID_ALMACEN,))
     connection.commit()
     cur.close()
     connection.close()
