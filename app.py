@@ -28,7 +28,7 @@ def login():
         username = request.form['password']
         conn = get_db_connection()
         cur = conn.cursor()
-        cur.execute(f"SELECT username, password from uers where username = '{username}'")
+        cur.execute(f"SELECT username, password from users where username = '{username}'")
         user = cur.fetchone()
         cursor.close()
         connection.close()
