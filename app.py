@@ -7,17 +7,19 @@ app = Flask (__name__)
 
 app.config['SECRET_KEY'] = os.urandom(24)
 
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'admin'
-app.config['MYSQL_PASSWORD'] = 'Lor0-420'
-app.config['MYSQL_DB'] = 'Items'
+app.config['MYSQL_HOST'] = os.environ.get('DB_HOST')
+app.config['MYSQL_USER'] = os.environ.get('DB_USER')
+app.config['MYSQL_PASSWORD'] = os.environ.get('DB_PASSWORD')
+app.config['MYSQL_DB'] = os.environ.get('DB_NAME')
+app.config['MYSQL_PORT'] = os.environ.get('DB_PORT', 3306)
 
 def get_db_connection():
     return pymysql.connect(
         host=app.config['MYSQL_HOST'],
         user=app.config['MYSQL_USER'],
         password=app.config['MYSQL_PASSWORD'],
-        db=app.config['MYSQL_DB']
+        db=app.config['MYSQL_DB'],
+        port=app.config['MYSQL_PORT']
 )
 
 @app.route('/login', methods =['GET','POST'])
@@ -452,4 +454,4 @@ def delete_almacen(ID_ALMACEN):
     return redirect(url_for('Index'))
 
 if __name__ == '__main__':
-    app.run(port = 3000)# debug = True)
+    app.run(port = 3306)# debug = True)
