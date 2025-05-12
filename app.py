@@ -31,7 +31,7 @@ def login():
         cursor.execute(f"SELECT username, password from users where username = '{username}'")
         user = cursor.fetchone()
         cursor.close()
-        connection.close()
+        conn.close()
         if user and pwd == user[1]:
             session['username'] = user [0]
             return redirect(url_for('index'))
@@ -49,9 +49,9 @@ def register():
         cursor = conn.cursor()
     
         cursor.execute(f"INSERT INTO users (username, password) VALES (%s, %s)", (username, pwd))
-        connection.commit()
+        conn.commit()
         cursor.close()
-        connection.close()
+        conn.close()
 
         return redirect(url_for('login'))
 
