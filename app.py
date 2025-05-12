@@ -184,7 +184,7 @@ def update_client(ID_CLIENTE):
 def delete_client(ID_CLIENTE):
     connection = get_db_connection()
     cur = connection.cursor()
-    cur.execute('DELETE FROM CLIENTES WHERE ID_CLIENTE = {0}'.format(ID_CLIENTE))
+    cur.execute("DELETE FROM CLIENTES WHERE ID_CLIENTE = %s", (ID_CLIENTE,))
     connection.commit()
     cur.close()
     connection.close()
