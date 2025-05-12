@@ -25,16 +25,17 @@ def get_db_connection():
 @app.route('/login', methods =['GET','POST'])
 def login():
     if request.method == 'POST':
-        username = request.form['password']
+        username = request.form['username']
+        pwd = request.form['password']
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute(f"SELECT username, password from users where username = '{username}'")
+        cursor.execute(f"SELECT username, password from users where username = %s", (username,))
         user = cursor.fetchone()
         cursor.close()
         conn.close()
         if user and pwd == user[1]:
             session['username'] = user [0]
-            return redirect(url_for('index'))
+            return redirect(url_for('Index'))
         else:
             return render_template('login.html', error='Usuario o password incorrectos')
     return render_template('login.html')
