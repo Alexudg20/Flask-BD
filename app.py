@@ -63,6 +63,10 @@ def logout():
     return redirect(url_for('login'))
 
 @app.route('/')
+def home():
+    return redirect(url_for('login'))
+
+@app.route('/Index')
 def Index():
     limit = 10
     page_clientes = max(request.args.get('clientes_page', 1, type = int), 1)
