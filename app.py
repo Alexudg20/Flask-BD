@@ -29,7 +29,7 @@ def login():
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute(f"SELECT username, password from users where username = '{username}'")
-        user = cur.fetchone()
+        user = cursor.fetchone()
         cursor.close()
         connection.close()
         if user and pwd == user[1]:
